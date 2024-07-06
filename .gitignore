@@ -1,0 +1,7 @@
+*.ini
+.*
+!.gitignore
+!.gitmodules
+temp/
+cache/
+storage/

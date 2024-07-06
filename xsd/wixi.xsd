@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xs:simpleType name="id">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9_\-]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="mixed" mixed="true">
+		<xs:choice>
+			<xs:element name="bold" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true"></xs:complexType>
+			</xs:element>
+			<xs:element name="italic" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true"></xs:complexType>
+			</xs:element>
+			<xs:element name="a" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true">
+					<xs:attribute name="href" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="u" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true"></xs:complexType>
+			</xs:element>
+			<xs:element name="s" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true"></xs:complexType>
+			</xs:element>
+			<xs:element name="code-inline" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true"></xs:complexType>
+			</xs:element>
+			<xs:element name="marker" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true"></xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="id" type="id"/>
+		<xs:attribute name="align">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="right"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:element name="editorjs">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="header" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="p" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="code-block" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="list" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="alert" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="hr" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="table" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="section" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attribute name="time" type="xs:integer" use="required"/>
+			<xs:attribute name="version" type="xs:string" use="required"/>
+		</xs:complexType>
+
+		<xs:unique name="id">
+			<xs:selector xpath=".//*"/>
+			<xs:field xpath="@id"/>
+		</xs:unique>
+	</xs:element>
+
+	<xs:element name="header" type="mixed">
+	</xs:element>
+
+	<xs:element name="p" type="mixed">
+	</xs:element>
+
+	<xs:element name="code-block">
+		<xs:complexType mixed="true">
+			<xs:attribute name="codelang" type="xs:string"/>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="list">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element ref="li" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:choice>
+			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="checkboxes" type="xs:boolean" default="false"/>
+			<xs:attribute name="type" default="bullet">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="decimal"/>
+						<xs:enumeration value="bullet"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="li">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:attribute name="checked" type="xs:boolean" default="false">
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="alert">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="info"/>
+						<xs:enumeration value="success"/>
+						<xs:enumeration value="warning"/>
+						<xs:enumeration value="danger"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="hr">
+		<xs:complexType>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="table">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="thead" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="tbody" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="thead">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="tr" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element ref="th" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:choice>
+						<xs:attribute name="id" type="id" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="tbody">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="tr" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element ref="td" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:choice>
+						<xs:attribute name="id" type="id" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="th">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="td">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:attribute name="id" type="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="section">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="header" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="p" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="code-block" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="list" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="alert" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="hr" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="table" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="section" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
