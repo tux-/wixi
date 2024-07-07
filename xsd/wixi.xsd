@@ -85,7 +85,7 @@
 			<xs:choice minOccurs="1" maxOccurs="1">
 				<xs:element ref="li" minOccurs="1" maxOccurs="unbounded"/>
 			</xs:choice>
-			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="id" type="id"/>
 			<xs:attribute name="checkboxes" type="xs:boolean" default="false"/>
 			<xs:attribute name="type" default="bullet">
 				<xs:simpleType>
@@ -100,9 +100,10 @@
 
 	<xs:element name="li">
 		<xs:complexType>
-			<xs:choice minOccurs="1" maxOccurs="1">
+			<xs:sequence>
 				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
-			</xs:choice>
+				<xs:element ref="list" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
 			<xs:attribute name="checked" type="xs:boolean" default="false">
 			</xs:attribute>
 		</xs:complexType>

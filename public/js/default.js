@@ -31,7 +31,7 @@ domReady.then(() => {
 					inlineToolbar: true,
 				},
 				list: {
-					class: List,
+					class: NestedList,
 					inlineToolbar: true,
 				},
 				code: {

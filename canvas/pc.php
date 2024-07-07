@@ -23,7 +23,7 @@ Canvas::title(Config::get('sitename'));
 
 		<script src="<?=BASE_PATH?>editorjs/header.js"></script>
 		<script src="<?=BASE_PATH?>editorjs/delimiter.js"></script>
-		<script src="<?=BASE_PATH?>editorjs/list.js"></script>
+		<script src="<?=BASE_PATH?>editorjs/nested-list.js"></script>
 		<script src="<?=BASE_PATH?>editorjs/checklist.js"></script>
 		<script src="<?=BASE_PATH?>editorjs/code.js"></script>
 		<script src="<?=BASE_PATH?>editorjs/table.js"></script>

@@ -84,15 +84,13 @@ class Wiki
 					];
 					continue;
 				}
-				foreach ($node->xpath('./li') as $item) {
-					$items[] = self::inlineToHtml($item->p);
-				}
+
 				$json['blocks'][] = [
 					'id' => self::getId($node),
 					'type' => 'list',
 					'data' => [
 						'style' => ((string) $node['type'] === 'decimal' ? 'ordered' : 'unordered'),
-						'items' => $items,
+						'items' => self::xmlToJsonNestedUl($node),
 					],
 				];
 				continue;
@@ -186,6 +184,37 @@ class Wiki
 		return $id;
 	}
 
+	private static function xmlToJsonNestedUl (SimpleXmlElement $node): array
+	{
+		$items = [];
+		if ((bool) $node === true) {
+			foreach ($node->xpath('./li') as $item) {
+				$items[] = [
+					'content' => self::inlineToHtml($item->p),
+					'items' => self::xmlToJsonNestedUl($item->list),
+				];
+			}
+		}
+		return $items;
+	}
+
+	private static function jsonBlocksToXmlNestedUl (array $json, SimpleXmlElement $node)
+	{
+		foreach ($json['items'] as $item) {
+			if ((string) $item['content'] !== '') {
+				$child = $node->addChild('li');
+				$child->insertLast(parseRich($item['content'], 'p'));
+				if (!empty($item['items'])) {
+					$list = $child->addChild('list');
+					self::jsonBlocksToXmlNestedUl($item, $list);
+					if ($list->count() === 0) {
+						$list->remove();
+					}
+				}
+			}
+		}
+	}
+
 	private static function jsonBlocksToXml (array $json, SimpleXmlElement &$sxml): void
 	{
 		$section = $sxml;
@@ -235,10 +264,7 @@ class Wiki
 				$node = $section->addChild('list');
 				$node['id'] = $block['id'];
 				$node['type'] = ($block['data']['style'] === 'ordered' ? 'decimal' : 'bullet');
-				foreach ($block['data']['items'] as $item) {
-					$child = $node->addChild('li');
-					$child->insertLast(parseRich($item, 'p'));
-				}
+				self::jsonBlocksToXmlNestedUl($block['data'], $node);
 				continue;
 			}
 
