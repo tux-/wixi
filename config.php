@@ -4,6 +4,9 @@ namespace gimle;
 
 return [
 	'sitename' => 'Wixi',
+	'search' => [
+		'limit' => 100,
+	],
 	'i18n' => [
 		'lang' => [
 			'en' => [

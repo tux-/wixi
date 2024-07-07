@@ -21,6 +21,9 @@ $router = Router::getInstance();
 $router->setCanvas('pc');
 
 $router->bind('*', '', function () use ($router) {
+	if (isset($_GET['q'])) {
+		return $router->setTemplate('search');
+	}
 	$router->setTemplate('wiki');
 });
 $router->bind('*', 'wiki(/:page)', function () use ($router) {

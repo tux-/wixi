@@ -10,7 +10,7 @@ Wixi uses [Editor.js](https://editorjs.io/) | [github](https://github.com/codex-
 
 * There is no authentication. Use on internal network only.
 * There is no version history. Take regular backups of the data directory.
-* There is no search features.
+* Search is just a wrapper based on grep.
 * There is no page to list all created pages.
 * There is no UI to change the slug of a page or delete it. You have to use the file system directly for this.
 * The project was created just to fill a need. More features will be added based on need, feedback or contributions.
