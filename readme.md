@@ -27,10 +27,6 @@ Copy `config.example.ini` to `config.ini` and edit values for your setup.
 Storage locations can be individually configured. The default `jail` will keep them in the site installation root. To create and give access to these folder you can use something like:
 
 ```bash
-mkdir temp cache storage && chown www-data:users temp cache storage && chmod 2775 temp cache storage
-```
-or, with sudo:
-```bash
 sudo mkdir temp cache storage && sudo chown www-data:users temp cache storage && sudo chmod 6775 temp cache storage
 ```
 
