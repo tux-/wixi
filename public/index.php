@@ -33,10 +33,10 @@ $router->bind('*', 'contents', function () use ($router) {
 	$router->setCanvas('json');
 	$router->setTemplate('contents');
 });
-$router->bind('*', 'save', function () use ($router) {
+$router->bind('*', ':template', function () use ($router) {
 	$router->setCanvas('json');
-	$router->setTemplate('save');
-}, Router::R_POST);
+	$router->setTemplate(page('template'));
+}, ['template' => 'save|movepost'], Router::R_POST);
 
 $router->dispatch();
 

@@ -16,8 +16,38 @@ class Wiki
 		else {
 			$file = 'wiki';
 		}
+		foreach (explode('/', $file) as $part) {
+			if ((str_starts_with($part, ' ')) || (str_ends_with($part, ' '))) {
+				throw new Exception('Invalid path.');
+			}
+		}
 		$file = STORAGE_DIR . 'xml/wiki/' . $file;
-		if (str_contains($file, ['.', '//', '\'', '#'])) {
+		if (str_contains($file, ['.', '//', '\'', '#', "\n", "\t"])) {
+			throw new Exception('Invalid path.');
+		}
+		if (str_ends_with($file, '/')) {
+			$file = substr($file, 0, -1);
+		}
+		$file .= '.xml';
+		if (filter_var($file, FILTER_VALIDATE_DIRNAME) === false) {
+			throw new Exception('Invalid path.');
+		}
+		return $file;
+	}
+
+	public static function slugToFilename (string $slug): string
+	{
+		if ($slug === '') {
+			return STORAGE_DIR . 'xml/wiki/wiki.xml';
+		}
+
+		foreach (explode('/', $slug) as $part) {
+			if ((str_starts_with($part, ' ')) || (str_ends_with($part, ' '))) {
+				throw new Exception('Invalid path.');
+			}
+		}
+		$file = STORAGE_DIR . 'xml/wiki/' . $slug;
+		if (str_contains($file, ['.', '//', '\'', '#', "\n", "\t"])) {
 			throw new Exception('Invalid path.');
 		}
 		if (str_ends_with($file, '/')) {

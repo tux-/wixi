@@ -121,6 +121,33 @@ domReady.then(() => {
 			});
 			return false;
 		});
+		gimle('[data-action="settings"]').on('click', (evt) => {
+			document.querySelector('#postmenu').showModal();
+		});
+		gimle('dialog .close').on('click', (evt) => {
+			document.querySelector('#postmenu').close();
+		});
+
+		gimle('#movepost').on('submit', (evt) => {
+			evt.preventDefault();
+			const data = new URLSearchParams();
+			for (const pair of new FormData(evt.target)) {
+				data.append(pair[0], pair[1]);
+			}
+			fetch(evt.target.action, {
+				method: evt.target.method,
+				body: data,
+			}).then(r => {
+				return r.json();
+			}).then(r => {
+				if (r.error !== undefined) {
+					alert(r.error);
+					return;
+				}
+				document.location.href = gimle.BASE_PATH + 'wiki/' + r.target;
+			});
+			return false;
+		});
 
 		gimle(window).on('keydown', (evt) => {
 			if (evt.key === 'Tab') {
