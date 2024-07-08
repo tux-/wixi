@@ -43,16 +43,18 @@ header {
 		}
 
 		button {
-			align-items: center;
-			display: grid;
-			grid-template-columns: auto auto;
 			gap: 6px;
-			font-size: 1.1rem;
+			font-size: 1.05rem;
 			font-weight: bold;
 			transition: background-color .5s ease-in-out;
 			background-color: #fff;
 			border: 1px solid #777;
 
+			&[data-editorjs="save"] {
+				display: grid;
+				grid-template-columns: auto auto;
+				align-items: center;
+			}
 			&.saved {
 				background-color: #0c0;
 				transition: unset;
@@ -66,6 +68,34 @@ header {
 				height: 14px;
 				width: 14px;
 				fill: black;
+			}
+		}
+	}
+
+	#toptools {
+		div {
+			width: 320px;
+			max-width: calc(100cqw - 110px);
+			margin-inline: auto;
+			display: grid;
+			grid-template-columns: 1fr auto auto;
+			align-items: center;
+			gap: 4px;
+
+			*:not(svg) {
+				margin: 0;
+				box-sizing: content-box;
+				height: 24px;
+			}
+			form {
+				display: contents;
+			}
+			input {
+				width: calc(100% - 23px);
+				padding-inline: 10px;
+			}
+			button {
+				padding-inline: 6px;
 			}
 		}
 	}
@@ -93,6 +123,44 @@ header {
 		max-width: 650px;
 	}
 }
+#postmenu {
+	border: 1px solid #777;
+	box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	width: 400px;
+	max-width: 90vw;
+
+	h1 {
+		margin: 0;
+		font-size: 1.2rem;
+	}
+
+	.close {
+		position: absolute;
+		right: 6px;
+		top: 3px;
+	}
+
+	&::backdrop {
+		background-color: rgba(200, 200, 200, 0.5);
+		backdrop-filter: blur(2px);
+		pointer-events: none;
+	}
+
+	.forms {
+		margin: 8px 0 6px 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 6px;
+
+		form {
+			display: contents;
+
+			input {
+				grid-column: span 2;
+			}
+		}
+	}
+}
 #searchresults {
 	max-width: 650px;
 	margin-inline: auto;
@@ -114,32 +182,7 @@ header {
 		}
 	}
 }
-#toptools {
-	div {
-		width: 320px;
-		max-width: calc(100cqw - 110px);
-		margin-inline: auto;
-		display: grid;
-		grid-template-columns: 1fr auto;
-		align-items: center;
-		gap: 30px;
 
-		*:not(svg) {
-			margin: 0;
-			box-sizing: content-box;
-			height: 24px;
-		}
-		form {
-			display: contents;
-		}
-		input {
-			width: 100%;
-		}
-		input, button {
-			padding-inline: 10px;
-		}
-	}
-}
 h1 {
 	border-bottom: 3px solid #1f74c1;
 }
