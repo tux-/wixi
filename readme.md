@@ -52,7 +52,7 @@ If you want to share write access to the stored data, you can use `mpm_itk` to u
 When pasting content from another source, the generated code is not always correct. Save and reload the page to check that the data is correct.
 
 ### Open link
-Since normal clicking of links places the cursor in that link, the `Shift` + click is hijacked to open link in the same window instead of a new one. `Ctrl` and `Ctrl + Shift` click works as normal. (Unknown what would happen on a mac).
+Since normal clicking of links places the cursor in that link, use the `Meta` key to open link in the same window. `Shift`, `Ctrl` and `Ctrl + Shift` click works as normal. (Unknown what would happen on a mac).
 
 ### Internal links
 The wiki support two protocols for internal links. If you paste internal links into the href input of a link, they will automatically be detected and converted. This makes it very easy to migrate the site to a new location without having to change any of the saved documents.

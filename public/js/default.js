@@ -168,7 +168,7 @@ domReady.then(() => {
 			}
 		}, true);
 		gimle(window).on('click', 'a', (evt) => {
-			if ((evt.shiftKey === true) || (evt.ctrlKey === true)) {
+			if ((evt.shiftKey === true) || (evt.ctrlKey === true) || (evt.metaKey === true)) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				let href = evt.target.href;
@@ -178,7 +178,7 @@ domReady.then(() => {
 				else if (href.startsWith('wiki://')) {
 					href = gimle.BASE_PATH + 'wiki/' + href.substring(7);
 				}
-				if ((evt.shiftKey === true) && (evt.ctrlKey === false)) {
+				if ((evt.shiftKey === false) && (evt.ctrlKey === false) && (evt.metaKey === true)) {
 					document.location.href = href;
 				}
 				else {
