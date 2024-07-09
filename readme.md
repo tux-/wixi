@@ -63,3 +63,7 @@ The wiki support two protocols for internal links. If you paste internal links i
 ### Paths
 
 `/wiki` this is the root of the wiki itself. All pages must be added under this path, eg: `/wiki/mytopic`. You can create as many levels as you wish. The slug will be used as file name for the xml file containing the data. `/` and `/wiki` both loads the wiki index page.
+
+### Special urls
+
+`base://browse` Browse all the posts in the wiki.
