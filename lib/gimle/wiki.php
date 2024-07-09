@@ -7,6 +7,20 @@ use \gimle\xml\Xsl;
 
 class Wiki
 {
+	public static function getSlug (string $file): string
+	{
+		if (str_ends_with($file, '.xml')) {
+			$file = substr($file, 0, -4);
+		}
+
+		$url = explode('/', $file);
+		array_walk($url, function (&$value) {
+			$value = rawurlencode($value);
+		});
+
+		return implode('/', $url);
+	}
+
 	public static function xmlFilename (string $page): string
 	{
 		$file = rawurldecode($page);

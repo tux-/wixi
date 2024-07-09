@@ -49,15 +49,12 @@ foreach ($result['stout'] as $file) {
 		}
 	}
 
-	$url = explode('/', substr($file, 0, -4));
-	array_walk($url, function (&$value) {
-		$value = rawurlencode($value);
-	});
+	$url = Wiki::getSlug($file);
 
 	$results[] = [
 		'title' => $title,
 		'score' => $score,
-		'url' => implode('/', $url),
+		'url' => $url,
 	];
 
 	$i++;
