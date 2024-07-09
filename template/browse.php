@@ -19,8 +19,6 @@ else {
 	];
 }
 
-$resultlimit = Config::get('search.limit');
-
 ?>
 <div id="searchresults" class="content">
 <?php
