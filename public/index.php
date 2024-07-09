@@ -33,6 +33,9 @@ $router->bind('*', 'contents', function () use ($router) {
 	$router->setCanvas('json');
 	$router->setTemplate('contents');
 });
+$router->bind('*', 'browse(/:page)', function () use ($router) {
+	$router->setTemplate('browse');
+}, ['page' => '.*']);
 $router->bind('*', ':template', function () use ($router) {
 	$router->setCanvas('json');
 	$router->setTemplate(page('template'));
