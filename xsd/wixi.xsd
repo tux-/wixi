@@ -32,6 +32,9 @@
 			<xs:element name="marker" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType mixed="true"></xs:complexType>
 			</xs:element>
+			<xs:element name="br" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType/>
+			</xs:element>
 		</xs:choice>
 		<xs:attribute name="id" type="id"/>
 		<xs:attribute name="align">
@@ -136,10 +139,10 @@
 
 	<xs:element name="table">
 		<xs:complexType>
-			<xs:choice>
+			<xs:sequence>
 				<xs:element ref="thead" minOccurs="0" maxOccurs="1"/>
 				<xs:element ref="tbody" minOccurs="1" maxOccurs="1"/>
-			</xs:choice>
+			</xs:sequence>
 			<xs:attribute name="id" type="id" use="required"/>
 		</xs:complexType>
 	</xs:element>
@@ -152,11 +155,11 @@
 						<xs:choice>
 							<xs:element ref="th" minOccurs="1" maxOccurs="unbounded"/>
 						</xs:choice>
-						<xs:attribute name="id" type="id" use="required"/>
+						<xs:attribute name="id" type="id"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="id" type="id"/>
 		</xs:complexType>
 	</xs:element>
 
@@ -168,11 +171,11 @@
 						<xs:choice maxOccurs="unbounded">
 							<xs:element ref="td" minOccurs="1" maxOccurs="unbounded"/>
 						</xs:choice>
-						<xs:attribute name="id" type="id" use="required"/>
+						<xs:attribute name="id" type="id"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="id" type="id"/>
 		</xs:complexType>
 	</xs:element>
 
@@ -181,7 +184,7 @@
 			<xs:choice minOccurs="1" maxOccurs="1">
 				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
 			</xs:choice>
-			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="id" type="id"/>
 		</xs:complexType>
 	</xs:element>
 
@@ -190,7 +193,7 @@
 			<xs:choice minOccurs="1" maxOccurs="1">
 				<xs:element ref="p" minOccurs="1" maxOccurs="1"/>
 			</xs:choice>
-			<xs:attribute name="id" type="id" use="required"/>
+			<xs:attribute name="id" type="id"/>
 		</xs:complexType>
 	</xs:element>
 

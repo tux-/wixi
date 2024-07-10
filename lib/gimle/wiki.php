@@ -351,8 +351,8 @@ class Wiki
 							$thead = $node->addChild('thead');
 							$tr = $thead->addChild('tr');
 							foreach ($row as $col) {
-								$td = $tr->addChild('td');
-								$td->insertLast(parseRich($col, 'p'));
+								$th = $tr->addChild('th');
+								$th->insertLast(parseRich($col, 'p'));
 							}
 							continue;
 						}
