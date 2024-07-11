@@ -99,7 +99,6 @@ domReady.then(() => {
 				fetch(gimle.BASE_PATH + 'contents?page=' + encodeURIComponent(document.location.href.substring(gimle.BASE_PATH.length))).then(r => {
 					return r.json();
 				}).then(r => {
-					console.log(r);
 					if (r === false) {
 						document.querySelector('#editorjs').innerHTML = `<div class="error">
 							<h1>Error</h1>
@@ -111,10 +110,28 @@ domReady.then(() => {
 						editor.render(r).then(() => {
 							document.querySelectorAll('textarea').forEach((elm) => {
 								autoGrow(elm);
+								elm.setAttribute('spellcheck', 'false');
 							});
 						});
 					}
 				});
+			},
+			onChange: (config, evts) => {
+				for (let evt in evts) {
+					if (typeof(evts[evt]) !== 'object') {
+						continue;
+					}
+					if (evts[evt] === null) {
+						continue;
+					}
+					if (evts[evt].type !== 'block-added') {
+						continue;
+					}
+					document.querySelectorAll('textarea').forEach((elm) => {
+						autoGrow(elm);
+						elm.setAttribute('spellcheck', 'false');
+					});
+				}
 			}
 		});
 
@@ -273,7 +290,6 @@ domReady.then(() => {
 								r = 'base://' + r.substring(gimle.BASE_PATH.length);
 							}
 							insertAtCursor(evt.target, r);
-							console.log(r);
 						});
 					}
 				}
