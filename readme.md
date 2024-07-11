@@ -4,7 +4,11 @@ A very simple wiki that stores pages as individual xml files on disk. There is n
 
 Wixi uses [Editor.js](https://editorjs.io/) | [github](https://github.com/codex-team/editor.js) as frontend editing interface.
 
-![Screenshot of the default wiki frontpage](screenshot.png)
+### Light mode
+![Screenshot of the default wiki frontpage](light.png)
+
+### Dark mode
+![Screenshot of the default wiki frontpage](dark.png)
 
 ## Worth of notice
 
