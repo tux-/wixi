@@ -205,6 +205,12 @@ table {
 	}
 }
 
+.ce-code__textarea {
+	resize: none;
+	overflow: hidden;
+	min-height: 48px;
+	max-height: unset;
+}
 
 .ce-delimiter {
 	border-bottom: 1px solid black;

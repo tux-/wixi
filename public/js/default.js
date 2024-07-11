@@ -31,6 +31,11 @@ const setThemeButton = () => {
 	}
 };
 
+const autoGrow = function (element) {
+	element.style.height = '5px';
+	element.style.height = (element.scrollHeight) + 'px';
+};
+
 if ((localStorage.getItem('skin') === 'dark') || ((localStorage.getItem('skin') !== 'light') && (window.matchMedia('(prefers-color-scheme: dark)').matches === true))) {
 	document.querySelector('html').classList.add('dark');
 }
@@ -103,7 +108,11 @@ domReady.then(() => {
 						</div>`;
 					}
 					else {
-						editor.render(r);
+						editor.render(r).then(() => {
+							document.querySelectorAll('textarea').forEach((elm) => {
+								autoGrow(elm);
+							});
+						});
 					}
 				});
 			}
@@ -180,6 +189,10 @@ domReady.then(() => {
 			// localStorage.setItem('skin', 'dark');
 
 			setThemeButton();
+		});
+
+		gimle(document).on('input', 'textarea', (evt) => {
+			autoGrow(evt.target);
 		});
 
 		gimle('#movepost').on('submit', (evt) => {
