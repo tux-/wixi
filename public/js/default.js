@@ -19,6 +19,20 @@ const insertAtCursor = (node, value) => {
 		node.selectionStart = startPos + value.length;
 		node.selectionEnd = startPos + value.length;
 	}
+};
+
+const setThemeButton = () => {
+	const button = document.querySelector('#toggletheme');
+	if ((localStorage.getItem('skin') === 'dark') || ((localStorage.getItem('skin') !== 'light') && (window.matchMedia('(prefers-color-scheme: dark)').matches === true))) {
+		button.textContent = 'Dark';
+	}
+	else {
+		button.textContent = 'Light';
+	}
+};
+
+if ((localStorage.getItem('skin') === 'dark') || ((localStorage.getItem('skin') !== 'light') && (window.matchMedia('(prefers-color-scheme: dark)').matches === true))) {
+	document.querySelector('html').classList.add('dark');
 }
 
 domReady.then(() => {
@@ -122,10 +136,50 @@ domReady.then(() => {
 			return false;
 		});
 		gimle('[data-action="settings"]').on('click', (evt) => {
+			evt.preventDefault();
 			document.querySelector('#postmenu').showModal();
+			return false;
 		});
 		gimle('dialog .close').on('click', (evt) => {
+			evt.preventDefault();
 			document.querySelector('#postmenu').close();
+			return false;
+		});
+		gimle('[data-action="menu"]').on('click', (evt) => {
+			evt.preventDefault();
+			const menu = document.querySelector('#menu');
+			if (menu.classList.contains('visible')) {
+				menu.classList.remove('visible');
+				return false;
+			}
+
+			setThemeButton();
+
+			menu.classList.add('visible');
+			return false;
+		});
+		gimle('#toggletheme').on('click', (evt) => {
+			evt.preventDefault();
+			const htmlClass = document.querySelector('head').classList;
+			if (localStorage.getItem('skin') !== null) {
+				localStorage.removeItem('skin');
+				document.querySelector('html').classList.remove('dark', 'light');
+			}
+			else if (window.matchMedia('(prefers-color-scheme: dark)').matches === true) {
+				localStorage.setItem('skin', 'light');
+				document.querySelector('html').classList.add('light');
+			}
+			else {
+				localStorage.setItem('skin', 'dark');
+				document.querySelector('html').classList.add('dark');
+			}
+
+			// if ((localStorage.getItem('skin') === 'dark') || ((localStorage.getItem('skin') !== 'light') && (window.matchMedia('(prefers-color-scheme: dark)').matches === true))) {
+			// }
+
+			// localStorage.setItem('skin', 'dark');
+
+			setThemeButton();
 		});
 
 		gimle('#movepost').on('submit', (evt) => {
