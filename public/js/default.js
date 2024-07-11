@@ -269,17 +269,32 @@ domReady.then(() => {
 		document.querySelector('html').classList.add('nowiki');
 	}
 
+	gimle(window).on('beforeunload', (evt) => {
+		document.querySelector('#menu').classList.remove('visible');
+	});
+
 	gimle('[data-action="menu"]').on('click', (evt) => {
 		evt.preventDefault();
+		evt.stopPropagation();
+		const close = () => {
+			gimle(window).off('click.page');
+			menu.classList.remove('visible');
+		};
 		const menu = document.querySelector('#menu');
 		if (menu.classList.contains('visible')) {
-			menu.classList.remove('visible');
+			close();
 			return false;
 		}
 
 		setThemeButton();
 
 		menu.classList.add('visible');
+
+		gimle(window).on('click.page', (evt) => {
+			if (evt.target.closest('#innermenu') === null) {
+				close();
+			}
+		});
 		return false;
 	});
 	gimle('#toggletheme').on('click', (evt) => {

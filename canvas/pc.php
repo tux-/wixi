@@ -74,12 +74,14 @@ Canvas::title(Config::get('sitename'));
 		</header>
 		<div id="menu">
 			<div>
-				<button id="toggletheme"></button>
-				<ul>
-					<li><a href="<?=BASE_PATH?>">Home</a></li>
-					<li><a href="<?=BASE_PATH?>modified">Last modified</a></li>
-					<li><a href="<?=BASE_PATH?>browse">Browse</a></li>
-				</ul>
+				<div id="innermenu">
+					<button id="toggletheme"></button>
+					<ul>
+						<li><a href="<?=BASE_PATH?>">Home</a></li>
+						<li><a href="<?=BASE_PATH?>modified">Last modified</a></li>
+						<li><a href="<?=BASE_PATH?>browse">Browse</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		%content%
