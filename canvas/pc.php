@@ -77,6 +77,7 @@ Canvas::title(Config::get('sitename'));
 				<button id="toggletheme"></button>
 				<ul>
 					<li><a href="<?=BASE_PATH?>">Home</a></li>
+					<li><a href="<?=BASE_PATH?>modified">Last modified</a></li>
 					<li><a href="<?=BASE_PATH?>browse">Browse</a></li>
 				</ul>
 			</div>

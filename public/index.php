@@ -37,6 +37,9 @@ $router->bind('*', 'browse(/:page)', function () use ($router) {
 	$router->setTemplate('browse');
 }, ['page' => '.*']);
 $router->bind('*', ':template', function () use ($router) {
+	$router->setTemplate(page('template'));
+}, ['page' => 'modified']);
+$router->bind('*', ':template', function () use ($router) {
 	$router->setCanvas('json');
 	$router->setTemplate(page('template'));
 }, ['template' => 'save|movepost'], Router::R_POST);
