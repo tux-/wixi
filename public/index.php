@@ -42,7 +42,7 @@ $router->bind('*', ':template', function () use ($router) {
 $router->bind('*', ':template', function () use ($router) {
 	$router->setCanvas('json');
 	$router->setTemplate(page('template'));
-}, ['template' => 'save|movepost'], Router::R_POST);
+}, ['template' => 'save|movepost|deletepost'], Router::R_POST);
 
 $router->dispatch();
 

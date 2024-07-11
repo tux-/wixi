@@ -105,6 +105,7 @@ domReady.then(() => {
 							<p>Check that you have no illegal characters in the url.</p>
 							<p>Url can not contain . : ; \\ " ' < > | ? # or doubble slash //</p>
 						</div>`;
+						document.querySelector('html').classList.add('nowiki');
 					}
 					else {
 						editor.render(r).then(() => {
@@ -198,6 +199,29 @@ domReady.then(() => {
 				}
 				document.location.href = gimle.BASE_PATH + 'wiki/' + r.target;
 			});
+			return false;
+		});
+
+		gimle('#deletepost').on('submit', (evt) => {
+			evt.preventDefault();
+			if (confirm('Are you sure you want to permanently delete this page?')) {
+				const data = new URLSearchParams();
+				for (const pair of new FormData(evt.target)) {
+					data.append(pair[0], pair[1]);
+				}
+				fetch(evt.target.action, {
+					method: evt.target.method,
+					body: data,
+				}).then(r => {
+					return r.json();
+				}).then(r => {
+					if (r.error !== undefined) {
+						alert(r.error);
+						return;
+					}
+					document.location.reload();
+				});
+			}
 			return false;
 		});
 

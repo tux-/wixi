@@ -23,6 +23,10 @@ if ($slug === null) {
 			<input type="text" name="slug" value="<?=htmlspecialchars($slug)?>"/>
 			<button>Move</button>
 		</form>
+		<form id="deletepost" action="<?=BASE_PATH?>deletepost" method="post">
+			<input type="hidden" name="from" value="<?=htmlspecialchars($slug)?>"/>
+			<button>Delete</button>
+		</form>
 	</div>
 </dialog>
 <?php

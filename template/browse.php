@@ -19,6 +19,18 @@ else {
 	];
 }
 
+if (!is_readable(STORAGE_DIR . 'xml/wiki/' . $page)) {
+?>
+<div id="searchresults" class="content">
+	<div class="error">
+		<h1>Error</h1>
+		<p>The location was not found.</p>
+	</div>
+</div>
+<?php
+	return true;
+}
+
 ?>
 <div id="searchresults" class="content">
 <?php

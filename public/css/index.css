@@ -165,10 +165,10 @@ header {
 		pointer-events: none;
 	}
 
-	.forms {
+	#movepost {
 		margin: 8px 0 6px 0;
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 2fr 1fr;
 		gap: 6px;
 
 		form {
@@ -177,6 +177,16 @@ header {
 			input {
 				grid-column: span 2;
 			}
+		}
+	}
+
+	#deletepost {
+		margin-top: 20px;
+		text-align: center;
+
+		button {
+			background: #c00;
+			color: white;
 		}
 	}
 }
