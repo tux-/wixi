@@ -7,35 +7,52 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<xs:group name="inline-elements">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="bold" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:group ref="inline-elements"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="italic" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:group ref="inline-elements"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="a" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:group ref="inline-elements"/>
+						<xs:attribute name="href" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="u" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:group ref="inline-elements"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="s" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:group ref="inline-elements"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="code-inline" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true"></xs:complexType>
+				</xs:element>
+				<xs:element name="marker" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:group ref="inline-elements"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="br" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType/>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+
 	<xs:complexType name="mixed" mixed="true">
-		<xs:choice>
-			<xs:element name="bold" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true"></xs:complexType>
-			</xs:element>
-			<xs:element name="italic" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true"></xs:complexType>
-			</xs:element>
-			<xs:element name="a" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true">
-					<xs:attribute name="href" type="xs:string"/>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="u" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true"></xs:complexType>
-			</xs:element>
-			<xs:element name="s" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true"></xs:complexType>
-			</xs:element>
-			<xs:element name="code-inline" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true"></xs:complexType>
-			</xs:element>
-			<xs:element name="marker" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType mixed="true"></xs:complexType>
-			</xs:element>
-			<xs:element name="br" minOccurs="0" maxOccurs="unbounded">
-				<xs:complexType/>
-			</xs:element>
-		</xs:choice>
+		<xs:group ref="inline-elements"/>
 		<xs:attribute name="id" type="id"/>
 		<xs:attribute name="align">
 			<xs:simpleType>

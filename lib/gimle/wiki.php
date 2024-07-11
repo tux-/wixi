@@ -214,6 +214,11 @@ class Wiki
 		$xsl = new Xsl();
 		$xsl->stylesheet(SITE_DIR . 'xsl/result.xsl');
 
+		$sxml = new SimpleXmlElement($xsl->render($sxml));
+
+		$xsl = new Xsl();
+		$xsl->stylesheet(SITE_DIR . 'xsl/indent.xsl');
+
 		$result = str_replace('&#13;', "\n", tab_indent($xsl->render($sxml), 2));
 
 		return $result;
