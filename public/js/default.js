@@ -265,6 +265,9 @@ domReady.then(() => {
 			}
 		}, true);
 	}
+	else {
+		document.querySelector('html').classList.add('nowiki');
+	}
 
 	gimle('[data-action="menu"]').on('click', (evt) => {
 		evt.preventDefault();

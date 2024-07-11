@@ -124,6 +124,14 @@ header {
 		}
 	}
 }
+.nowiki {
+	header :is([data-editorjs="save"], [data-action="settings"]) {
+		display: none;
+	}
+	#toptools > div {
+		grid-template-columns: 1fr auto;
+	}
+}
 .content {
 	padding-top: 45px;
 }
