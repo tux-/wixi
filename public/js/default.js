@@ -41,7 +41,7 @@ if ((localStorage.getItem('skin') === 'dark') || ((localStorage.getItem('skin') 
 }
 
 domReady.then(() => {
-	if (document.querySelector('[data-editorjs="save"]') !== null) {
+	if (document.querySelector('#editorjs') !== null) {
 
 		const editor = new EditorJS({
 			tools: {
@@ -135,32 +135,36 @@ domReady.then(() => {
 			}
 		});
 
-		gimle('[data-editorjs="save"]').on('click', (evt) => {
-			evt.preventDefault();
-			editor.save().then(data => {
-				fetch(gimle.BASE_PATH + 'save?page=' + encodeURIComponent(document.location.href.substring(gimle.BASE_PATH.length)), {
-					method: 'post',
-					body: JSON.stringify(data),
-				}).then(r => {
-					return r.json();
-				}).then(r => {
-					if (r === true) {
-						evt.target.classList.add('saved');
-						setTimeout(() => {
-							evt.target.classList.remove('saved');
-						}, 200);
-					}
-					else {
-						alert('There was an error saving, check spectacle');
-						evt.target.classList.add('error');
-						setTimeout(() => {
-							evt.target.classList.remove('error');
-						}, 200);
-					}
+		gimle(window).on('click', (evt) => {
+			if (evt.target.closest('[data-editorjs="save"]')) {
+				evt.preventDefault();
+				const target = evt.target.closest('[data-editorjs="save"]');
+				editor.save().then(data => {
+					fetch(gimle.BASE_PATH + 'save?page=' + encodeURIComponent(document.location.href.substring(gimle.BASE_PATH.length)), {
+						method: 'post',
+						body: JSON.stringify(data),
+					}).then(r => {
+						return r.json();
+					}).then(r => {
+						if (r === true) {
+							target.classList.add('saved');
+							setTimeout(() => {
+								target.classList.remove('saved');
+							}, 200);
+						}
+						else {
+							alert('There was an error saving, check spectacle');
+							target.classList.add('error');
+							setTimeout(() => {
+								target.classList.remove('error');
+							}, 200);
+						}
+					});
 				});
-			});
-			return false;
+				return false;
+			}
 		});
+
 		gimle('[data-action="settings"]').on('click', (evt) => {
 			evt.preventDefault();
 			document.querySelector('#postmenu').showModal();
@@ -170,42 +174,6 @@ domReady.then(() => {
 			evt.preventDefault();
 			document.querySelector('#postmenu').close();
 			return false;
-		});
-		gimle('[data-action="menu"]').on('click', (evt) => {
-			evt.preventDefault();
-			const menu = document.querySelector('#menu');
-			if (menu.classList.contains('visible')) {
-				menu.classList.remove('visible');
-				return false;
-			}
-
-			setThemeButton();
-
-			menu.classList.add('visible');
-			return false;
-		});
-		gimle('#toggletheme').on('click', (evt) => {
-			evt.preventDefault();
-			const htmlClass = document.querySelector('head').classList;
-			if (localStorage.getItem('skin') !== null) {
-				localStorage.removeItem('skin');
-				document.querySelector('html').classList.remove('dark', 'light');
-			}
-			else if (window.matchMedia('(prefers-color-scheme: dark)').matches === true) {
-				localStorage.setItem('skin', 'light');
-				document.querySelector('html').classList.add('light');
-			}
-			else {
-				localStorage.setItem('skin', 'dark');
-				document.querySelector('html').classList.add('dark');
-			}
-
-			// if ((localStorage.getItem('skin') === 'dark') || ((localStorage.getItem('skin') !== 'light') && (window.matchMedia('(prefers-color-scheme: dark)').matches === true))) {
-			// }
-
-			// localStorage.setItem('skin', 'dark');
-
-			setThemeButton();
 		});
 
 		gimle(document).on('input', 'textarea', (evt) => {
@@ -297,4 +265,36 @@ domReady.then(() => {
 			}
 		}, true);
 	}
+
+	gimle('[data-action="menu"]').on('click', (evt) => {
+		evt.preventDefault();
+		const menu = document.querySelector('#menu');
+		if (menu.classList.contains('visible')) {
+			menu.classList.remove('visible');
+			return false;
+		}
+
+		setThemeButton();
+
+		menu.classList.add('visible');
+		return false;
+	});
+	gimle('#toggletheme').on('click', (evt) => {
+		evt.preventDefault();
+		const htmlClass = document.querySelector('head').classList;
+		if (localStorage.getItem('skin') !== null) {
+			localStorage.removeItem('skin');
+			document.querySelector('html').classList.remove('dark', 'light');
+		}
+		else if (window.matchMedia('(prefers-color-scheme: dark)').matches === true) {
+			localStorage.setItem('skin', 'light');
+			document.querySelector('html').classList.add('light');
+		}
+		else {
+			localStorage.setItem('skin', 'dark');
+			document.querySelector('html').classList.add('dark');
+		}
+
+		setThemeButton();
+	});
 });
